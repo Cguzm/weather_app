@@ -3,7 +3,7 @@ var json;
 
 // API CALL
 const fetchWeather = async () =>
-  await (await fetch("/.netlify/functions/getweather")).json();
+  await (await fetch("/.netlify/functions/getweather?ip=0")).json();
 
 // CONVERT F to C
 function showTemp(fTemp, c) {
