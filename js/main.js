@@ -3,17 +3,49 @@ var json;
 
 // API CALL
 const fetchWeather = async () =>
-  await (await fetch("/.netlify/functions/getweather")).json();
+  // await (await fetch("/.netlify/functions/getweather")).json();
+  await (await fetch("http://localhost:9000/getweather")).json();
+
+const getLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(response);
+  } else {
+    alert("Location not found!");
+  }
+};
+
+getLocation();
+
+function response(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  // const { API_KEY } = process.env;
+  const API_KEY = "2811a2e282413e312a01ed1b5d331493";
+  const URL_API =
+    "https://api.openweathermap.org/data/2.5/weather?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&APPID=" +
+    API_KEY +
+    "&units=imperial";
+
+  const getWeather = async () => await (await fetch(URL_API)).json();
+
+  if (lat && lon) {
+    getWeather();
+  }
+
+  getWeather().then(data => {
+    render(data, celsius);
+  });
+}
 
 // CONVERT F to C
 function showTemp(fTemp, c) {
   if (c) return Math.round((fTemp - 32) * (5 / 9)) + " C";
   return Math.round(fTemp) + " F";
 }
-
-fetchWeather().then(data => {
-  render(data, celsius);
-});
 
 function render(json, celsius) {
   const currentTemp = showTemp(json.main.temp, celsius);
