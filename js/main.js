@@ -18,7 +18,7 @@ getLocation();
 function response(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
-  const { API_KEY } = process.env;
+  const API_KEY = "2811a2e282413e312a01ed1b5d331493";
   const URL_API =
     "https://api.openweathermap.org/data/2.5/weather?lat=" +
     lat +
