@@ -3,8 +3,7 @@ var json;
 
 // API CALL
 const fetchWeather = async () =>
-  // await (await fetch("/.netlify/functions/getweather")).json();
-  await (await fetch("http://localhost:9000/getweather")).json();
+  await (await fetch("/.netlify/functions/getweather")).json();
 
 const getLocation = () => {
   if (navigator.geolocation) {
